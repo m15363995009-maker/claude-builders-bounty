@@ -12,6 +12,6 @@ This file records facts, not marketing claims. Add a row only after checking the
 | Releases | 0 | GitHub REST API releases endpoint | 2026-08-08 | No public release has been published. |
 | External users or downloads | not recorded | not recorded | 2026-08-08 | Do not claim adoption without dated primary evidence. |
 | Local tests | passing | `npm test` | 2026-08-08 | Record the exact run again after future changes. |
-| CI runs | pending after main-branch upload | not yet recorded | 2026-08-08 | Replace after a public workflow run completes. |
+| CI runs | successful `CI` run verified | https://github.com/m15363995009-maker/claude-builders-bounty/actions/runs/31251308550 | 2026-08-08 | Run for commit `b1c61c3`; proves workflow execution, not project adoption. |
 
 An application to an OSS support program must re-check every row before submission. A missing value is preferable to a fabricated one.
