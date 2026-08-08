@@ -1,4 +1,4 @@
-name: Claude PR Review
+name: Pull request report
 
 on:
   pull_request:
@@ -6,27 +6,41 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
-  issues: write
+  pull-requests: read
 
 jobs:
   review:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Check out trusted base branch only
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Generate structured review
+      - name: Install dependencies without lifecycle scripts
+        run: npm install --ignore-scripts
+
+      - name: Run tests
+        run: npm test
+
+      - name: Generate read-only structured report
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CLAUDE_REVIEW_COMMAND: ${{ vars.CLAUDE_REVIEW_COMMAND || 'claude' }}
-        run: |
+        run: >-
           node bin/claude-review.js \
             --pr "${{ github.event.pull_request.html_url }}" \
-            --post-comment
+            --mode heuristic \
+            --out review.md
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pull-request-report-${{ github.event.pull_request.number }}
+          path: review.md
+          if-no-files-found: error
