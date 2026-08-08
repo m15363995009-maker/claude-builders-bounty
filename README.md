@@ -2,6 +2,31 @@
 
 > A community bounty board for Claude Code builders.
 
+> **Current status — 2026-08-08:** This repository now contains a small, runnable maintainer-automation MVP. The original bounty-board copy below is preserved for continuity, but its table is not a live GitHub issue query and the repository does not claim that the listed issues exist or that payment is automatic. Treat only verified issue, workflow, and release records as current.
+
+## Maintainer automation (current)
+
+The current MVP provides a `maintainer-bot` CLI that reads a GitHub pull request's metadata and diff, produces a structured review, and can create or update one marked PR comment. The default heuristic engine is deterministic and does not execute pull-request code. An external reviewer can be enabled explicitly with `--mode external` or `--mode auto` plus a configured command.
+
+### Local usage
+
+```bash
+npm ci
+npm test
+npm run test:smoke
+node bin/maintainer-bot.js --pr https://github.com/owner/repo/pull/123 --mode heuristic --dry-run
+```
+
+To post the idempotent comment, provide `GITHUB_TOKEN` or `GH_TOKEN` and use `--post-comment`. The GitHub Action runs the base-branch code only, uses least-privilege permissions, and does not check out the contributor's head branch.
+
+### Current truth boundary
+
+- This software does not create, approve, or automatically pay bounties.
+- The original `/opire` instructions and bounty table are retained below as historical project context, not as proof of a live integration.
+- No repository activity metrics are stated unless they are retrieved from GitHub and dated.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and [CHANGELOG.md](CHANGELOG.md) for maintenance rules and the first release notes.
+
 Building with Claude Code? Have tasks to delegate?
 Want to get paid for contributing to AI projects?
 You're in the right place.

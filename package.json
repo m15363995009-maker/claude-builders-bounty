@@ -1,0 +1,26 @@
+{
+  "name": "claude-builders-bounty",
+  "version": "0.1.0",
+  "description": "Open-source maintainer automation for pull request review workflows.",
+  "license": "MIT",
+  "bin": {
+    "maintainer-bot": "./bin/maintainer-bot.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "LICENSE",
+    "README.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "test:smoke": "node bin/maintainer-bot.js --help",
+    "check": "npm test && npm run test:smoke"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
