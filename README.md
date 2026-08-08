@@ -45,13 +45,16 @@ The pull-request workflow checks out the trusted base commit, reads pull-request
 
 The local `--post-comment` path is a separate, explicit maintainer action. Human maintainers remain responsible for security decisions, approvals, merges, payments, and releases.
 
-## Bounty board
+## Contribution bounty plan
 
-The board is intentionally empty until a real task is created with clear acceptance criteria and a verifiable maintainer decision. Do not treat sample files as active bounties, and do not claim payment or adoption that is not recorded in a primary source.
+The project has a transparent, proposed contribution-bounty plan in [`docs/contribution-bounty.md`](docs/contribution-bounty.md). The board is intentionally empty until a real task has clear acceptance criteria, a fixed amount, a funding source, a payout method, and a verifiable maintainer decision. Do not treat sample files as active bounties, and do not claim payment or adoption that is not recorded in a primary source.
+
+Stars and follows are never required for payment. A future bounty will reward accepted engineering work only.
 
 ## Evidence and contribution
 
 - [`docs/evidence-ledger.md`](docs/evidence-ledger.md) — factual, dated project evidence.
+- [`docs/contribution-bounty.md`](docs/contribution-bounty.md) — proposed bounty rules and evidence requirements.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — development and review rules.
 - [`SECURITY.md`](SECURITY.md) — vulnerability reporting and safety boundary.
 - [`CHANGELOG.md`](CHANGELOG.md) — release history.

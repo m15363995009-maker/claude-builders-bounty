@@ -13,5 +13,6 @@ This file records facts, not marketing claims. Add a row only after checking the
 | External users or downloads | not recorded | not recorded | 2026-08-08 | Do not claim adoption without dated primary evidence. |
 | Local tests | passing | `npm test` | 2026-08-08 | Record the exact run again after future changes. |
 | CI runs | successful `CI` run verified | https://github.com/m15363995009-maker/claude-builders-bounty/actions/runs/31251308550 | 2026-08-08 | Run for commit `b1c61c3`; proves workflow execution, not project adoption. |
+| Contribution bounty | proposed; payment platform not configured | [`docs/contribution-bounty.md`](contribution-bounty.md) | 2026-08-08 | No active paid task or payout claim is being made. |
 
 An application to an OSS support program must re-check every row before submission. A missing value is preferable to a fabricated one.
