@@ -4,7 +4,7 @@
 
 ## Current status
 
-This repository is a bootstrap project. The public `main` branch currently has no verified active bounties, external users, downloads, releases, or adoption metrics. Those facts are intentionally not inferred from repository creation. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
+This repository is a bootstrap project. Release [`v0.1.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.1.0) is public. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
 
 This project is independent and is not an Anthropic or OpenAI product. A public repository does not imply acceptance into any partner, credits, or subscription program.
 
@@ -17,10 +17,14 @@ This project is independent and is not an Anthropic or OpenAI product. A public 
 - Explicit, opt-in PR comment posting; read-only reporting is the default.
 - Tests, samples, a reusable Claude Code reviewer instruction, and read-only GitHub Actions.
 
-## Local use
+## Install from source
+
+No npm registry release is currently claimed. Install from the public source repository:
 
 ```bash
-npm install
+git clone https://github.com/m15363995009-maker/claude-builders-bounty.git
+cd claude-builders-bounty
+npm ci --ignore-scripts
 npm run check
 
 node bin/claude-review.js \
@@ -62,6 +66,8 @@ Stars and follows are never required for payment. A future bounty will reward ac
 - [`CHANGELOG.md`](CHANGELOG.md) — release history.
 
 Contributions should include a focused change, tests or reproducible verification, and documentation updates when behavior changes.
+
+Use the public [issue tracker](https://github.com/m15363995009-maker/claude-builders-bounty/issues) for reproducible bugs, focused feature proposals, and maintenance tasks. Do not post vulnerabilities or secrets in a public issue.
 
 ## License
 
