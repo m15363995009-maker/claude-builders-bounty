@@ -8,8 +8,8 @@ This file records facts, not marketing claims. Add a row only after checking the
 | Maintainer role | public owner metadata: `m15363995009-maker` | GitHub REST API repository owner field | 2026-08-09 | Confirms public owner metadata only. |
 | Stars | 0 | GitHub REST API repository metadata | 2026-08-09 | Do not substitute watchers or forks. |
 | Forks | 0 | GitHub REST API repository metadata | 2026-08-09 | Verified public snapshot. |
-| Issues | enabled; 0 open | https://github.com/m15363995009-maker/claude-builders-bounty/issues | 2026-08-09 | Public issue forms are available; no active public bounty issue is currently verified. |
-| Repository topics | 6 public topics | GitHub REST API repository topics | 2026-08-09 | Topics describe Claude Code, pull-request review, developer tools, GitHub Actions, open source, and AI tooling. |
+| Issues | enabled; 1 open contributor task | https://github.com/m15363995009-maker/claude-builders-bounty/issues/8 | 2026-08-09 | `good first issue` #8 is voluntary and explicitly unfunded; no active public bounty issue is claimed. |
+| Repository topics | 9 public topics | GitHub REST API repository topics | 2026-08-09 | Topics describe Claude Code, pull-request/code review, CLI and maintainer tools, developer tools, GitHub Actions, open source, and AI tooling. |
 | Releases | 2 public releases: `v0.1.0` and `v0.2.0` | https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.2.0 | 2026-08-09 | `v0.2.0` is a non-draft, non-prerelease release; this proves release activity, not adoption. |
 | External users or downloads | not recorded | not recorded | 2026-08-08 | Do not claim adoption without dated primary evidence. |
 | Local release checks | passing | `npm run check` and `npm pack --dry-run --json` | 2026-08-09 | Unit, CLI help, CLI version, and package-content checks pass; the dry run contains 9 runtime/release files. |
