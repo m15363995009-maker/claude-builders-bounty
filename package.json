@@ -1,9 +1,32 @@
 {
   "name": "claude-pr-review-agent",
   "version": "0.1.0",
-  "description": "Claude Code PR review agent with structured Markdown output.",
+  "description": "Read-only pull-request review CLI with deterministic and optional local Claude engines.",
+  "keywords": [
+    "claude-code",
+    "github",
+    "pull-request",
+    "code-review",
+    "cli"
+  ],
   "private": true,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m15363995009-maker/claude-builders-bounty.git"
+  },
+  "homepage": "https://github.com/m15363995009-maker/claude-builders-bounty#readme",
+  "bugs": {
+    "url": "https://github.com/m15363995009-maker/claude-builders-bounty/issues"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "CHANGELOG.md",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
   "bin": {
     "claude-review": "./bin/claude-review.js"
   },
@@ -11,7 +34,8 @@
     "test": "node test/unit.test.js",
     "test:smoke": "node bin/claude-review.js --help",
     "test:version": "node bin/claude-review.js --version",
-    "check": "npm test && npm run test:smoke && npm run test:version"
+    "test:package": "node test/package.test.js",
+    "check": "npm test && npm run test:smoke && npm run test:version && npm run test:package"
   },
   "engines": {
     "node": ">=20"

@@ -2,6 +2,13 @@
 
 All notable changes to this project are recorded here.
 
+## [Unreleased]
+
+- Corrected the public release status and documented source installation.
+- Added a contribution guide and enabled the repository issue workflow.
+- Added explicit npm package boundaries and an automated package-content check.
+- Made the read-only pull-request workflow use reproducible installs and full release checks.
+
 ## [0.1.0] - 2026-08-09
 
 - Published the `claude-review` CLI on the public `main` branch.
