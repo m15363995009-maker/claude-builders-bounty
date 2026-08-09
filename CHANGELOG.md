@@ -7,6 +7,7 @@ All notable changes to this project are recorded here.
 - Require HTTPS GitHub pull-request URLs and reject credential-bearing or port-qualified URLs.
 - Preserve successful pull-request metadata when the GitHub file-list request is unavailable.
 - Bound GitHub API and diff requests with a 30-second timeout.
+- Updated GitHub Actions to Node 24-compatible releases to remove the Node 20 action-runtime deprecation warning.
 - Corrected the public release status and documented source installation.
 - Added a contribution guide and enabled the repository issue workflow.
 - Added explicit npm package boundaries and an automated package-content check.
