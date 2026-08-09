@@ -4,15 +4,16 @@ This file records facts, not marketing claims. Add a row only after checking the
 
 | Claim | Value | Source URL or command | Checked on | Notes |
 |---|---|---|---|---|
-| Public repository | https://github.com/m15363995009-maker/claude-builders-bounty | GitHub REST API repository metadata | 2026-08-08 | Public repository; default branch is `main`. |
-| Maintainer role | public owner metadata: `m15363995009-maker` | GitHub REST API repository owner field | 2026-08-08 | Confirms public owner metadata only. |
-| Stars | 0 | GitHub REST API repository metadata | 2026-08-08 | Do not substitute watchers or forks. |
-| Forks | 0 | GitHub REST API repository metadata | 2026-08-08 | Verified public snapshot. |
-| Issues | 0 | GitHub REST API issues endpoint | 2026-08-08 | No active public bounty issues are currently verified. |
-| Releases | 0 | GitHub REST API releases endpoint | 2026-08-08 | No public release has been published. |
+| Public repository | https://github.com/m15363995009-maker/claude-builders-bounty | GitHub REST API repository metadata | 2026-08-09 | Public repository; default branch is `main`. |
+| Maintainer role | public owner metadata: `m15363995009-maker` | GitHub REST API repository owner field | 2026-08-09 | Confirms public owner metadata only. |
+| Stars | 0 | GitHub REST API repository metadata | 2026-08-09 | Do not substitute watchers or forks. |
+| Forks | 0 | GitHub REST API repository metadata | 2026-08-09 | Verified public snapshot. |
+| Issues | 0 | GitHub REST API issues endpoint | 2026-08-09 | No active public bounty issues are currently verified. |
+| Releases | 1 public release | https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.1.0 | 2026-08-09 | `v0.1.0` is published; this proves release activity, not adoption. |
 | External users or downloads | not recorded | not recorded | 2026-08-08 | Do not claim adoption without dated primary evidence. |
-| Local tests | passing | `npm test` | 2026-08-08 | Record the exact run again after future changes. |
-| CI runs | successful `CI` run verified | https://github.com/m15363995009-maker/claude-builders-bounty/actions/runs/31251308550 | 2026-08-08 | Run for commit `b1c61c3`; proves workflow execution, not project adoption. |
-| Contribution bounty | proposed; payment platform not configured | [`docs/contribution-bounty.md`](contribution-bounty.md) | 2026-08-08 | No active paid task or payout claim is being made. |
+| Local release checks | passing | `npm run check` and `npm pack --dry-run` | 2026-08-09 | Unit, CLI help, CLI version, and package dry-run checks passed before release. |
+| Maintenance pull request | PR #1 merged | https://github.com/m15363995009-maker/claude-builders-bounty/pull/1 | 2026-08-09 | Release-readiness changes were reviewed through the public pull-request workflow. |
+| CI runs | successful `CI` and read-only review runs verified | https://github.com/m15363995009-maker/claude-builders-bounty/actions/runs/31295280021 | 2026-08-09 | Runs for commit `ffa4609`; proves workflow execution, not project adoption. |
+| Contribution bounty | proposed; payment platform not configured | [`docs/contribution-bounty.md`](contribution-bounty.md) | 2026-08-09 | No active paid task or payout claim is being made. |
 
 An application to an OSS support program must re-check every row before submission. A missing value is preferable to a fabricated one.
