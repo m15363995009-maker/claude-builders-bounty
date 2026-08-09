@@ -4,6 +4,9 @@ All notable changes to this project are recorded here.
 
 ## [Unreleased]
 
+- Require HTTPS GitHub pull-request URLs and reject credential-bearing or port-qualified URLs.
+- Preserve successful pull-request metadata when the GitHub file-list request is unavailable.
+- Bound GitHub API and diff requests with a 30-second timeout.
 - Corrected the public release status and documented source installation.
 - Added a contribution guide and enabled the repository issue workflow.
 - Added explicit npm package boundaries and an automated package-content check.

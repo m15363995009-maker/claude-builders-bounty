@@ -1,5 +1,10 @@
 const assert = require("node:assert/strict");
-const { parseDiffFiles, parsePullRequestUrl } = require("../src/github");
+const {
+  mergePullRequestApiResults,
+  parseDiffFiles,
+  parsePullRequestUrl,
+  REQUEST_TIMEOUT_MS,
+} = require("../src/github");
 const { createHeuristicReview, REQUIRED_HEADINGS } = require("../src/review");
 
 const parsed = parsePullRequestUrl("https://github.com/example/project/pull/123");
@@ -13,6 +18,39 @@ assert.deepEqual(parsed, {
 assert.throws(
   () => parsePullRequestUrl("https://github.com/example/project/issues/123"),
   /Expected a URL/,
+);
+
+assert.throws(
+  () => parsePullRequestUrl("http://github.com/example/project/pull/123"),
+  /Only HTTPS/,
+);
+assert.throws(
+  () => parsePullRequestUrl("https://user:pass@github.com/example/project/pull/123"),
+  /credentials or a port/,
+);
+assert.equal(REQUEST_TIMEOUT_MS, 30_000);
+
+const fallbackFiles = [
+  {
+    filename: "src/index.js",
+    status: "modified",
+    additions: 1,
+    deletions: 0,
+    changes: 1,
+  },
+];
+assert.deepEqual(
+  mergePullRequestApiResults(
+    [
+      { status: "fulfilled", value: { title: "Keep this metadata" } },
+      { status: "rejected", reason: new Error("rate limited") },
+    ],
+    fallbackFiles,
+  ),
+  {
+    pull: { title: "Keep this metadata" },
+    files: fallbackFiles,
+  },
 );
 
 const files = parseDiffFiles(`diff --git a/src/index.js b/src/index.js

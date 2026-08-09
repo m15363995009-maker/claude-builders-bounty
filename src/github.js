@@ -1,4 +1,5 @@
 const API_ROOT = "https://api.github.com";
+const REQUEST_TIMEOUT_MS = 30_000;
 
 function parsePullRequestUrl(input) {
   let url;
@@ -8,8 +9,16 @@ function parsePullRequestUrl(input) {
     throw new Error(`Invalid PR URL: ${input}`);
   }
 
+  if (url.protocol !== "https:") {
+    throw new Error("Only HTTPS github.com pull request URLs are supported");
+  }
+
   if (url.hostname !== "github.com") {
     throw new Error("Only github.com pull request URLs are supported");
+  }
+
+  if (url.username || url.password || url.port) {
+    throw new Error("GitHub pull request URLs cannot contain credentials or a port");
   }
 
   const match = url.pathname.match(/^\/([^/]+)\/([^/]+)\/pull\/(\d+)\/?$/);
@@ -37,8 +46,15 @@ function headers(token, accept = "application/vnd.github+json") {
   return base;
 }
 
+function requestOptions(token, accept) {
+  return {
+    headers: headers(token, accept),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  };
+}
+
 async function githubJson(url, token) {
-  const response = await fetch(url, { headers: headers(token) });
+  const response = await fetch(url, requestOptions(token));
   if (!response.ok) {
     throw new Error(`GitHub API request failed ${response.status}: ${url}`);
   }
@@ -46,11 +62,22 @@ async function githubJson(url, token) {
 }
 
 async function githubText(url, token, accept) {
-  const response = await fetch(url, { headers: headers(token, accept) });
+  const response = await fetch(url, requestOptions(token, accept));
   if (!response.ok) {
     throw new Error(`GitHub request failed ${response.status}: ${url}`);
   }
   return response.text();
+}
+
+function mergePullRequestApiResults(apiResults, fallbackFiles) {
+  const [pullResult, filesResult] = apiResults;
+  return {
+    pull: pullResult.status === "fulfilled" ? pullResult.value : {},
+    files:
+      filesResult.status === "fulfilled" && Array.isArray(filesResult.value)
+        ? filesResult.value
+        : fallbackFiles,
+  };
 }
 
 function parseDiffFiles(diff) {
@@ -114,17 +141,11 @@ async function fetchPullRequest(input, { token = "" } = {}) {
   const diff = await fetchDiff(identity, token);
   const parsedFiles = parseDiffFiles(diff);
 
-  let pull = {};
-  let files = parsedFiles;
-  try {
-    [pull, files] = await Promise.all([
-      githubJson(`${base}/pulls/${identity.number}`, token),
-      githubJson(`${base}/pulls/${identity.number}/files?per_page=100`, token),
-    ]);
-  } catch {
-    pull = {};
-    files = parsedFiles;
-  }
+  const apiResults = await Promise.allSettled([
+    githubJson(`${base}/pulls/${identity.number}`, token),
+    githubJson(`${base}/pulls/${identity.number}/files?per_page=100`, token),
+  ]);
+  const { pull, files } = mergePullRequestApiResults(apiResults, parsedFiles);
 
   const additions =
     pull.additions ?? files.reduce((sum, file) => sum + file.additions, 0);
@@ -154,6 +175,8 @@ async function fetchPullRequest(input, { token = "" } = {}) {
 
 module.exports = {
   fetchPullRequest,
+  mergePullRequestApiResults,
   parseDiffFiles,
   parsePullRequestUrl,
+  REQUEST_TIMEOUT_MS,
 };
