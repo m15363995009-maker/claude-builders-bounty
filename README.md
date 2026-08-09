@@ -21,13 +21,15 @@ This project is independent and is not an Anthropic or OpenAI product. A public 
 
 ```bash
 npm install
-npm test
+npm run check
 
 node bin/claude-review.js \
   --pr https://github.com/owner/repository/pull/123 \
   --mode heuristic \
   --out review.md
 ```
+
+Use `node bin/claude-review.js --version` to verify the installed CLI version.
 
 The default `auto` mode tries the local Claude CLI and falls back to the heuristic engine when that command is unavailable. Use `--mode claude` to fail instead of falling back.
 

@@ -2,6 +2,7 @@
 
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const packageJson = require("../package.json");
 const { fetchPullRequest } = require("../src/github");
 const {
   buildClaudePrompt,
@@ -17,6 +18,7 @@ Options:
   --mode auto|claude|heuristic  Review engine. Default: auto
   --out <file>                  Write Markdown output to a file
   --post-comment                Post the review as a GitHub PR comment
+  --version                     Print the package version
   --help                        Show this help
 
 Environment:
@@ -32,6 +34,8 @@ function parseArgs(argv) {
     const arg = argv[index];
     if (arg === "--help" || arg === "-h") {
       options.help = true;
+    } else if (arg === "--version" || arg === "-v") {
+      options.version = true;
     } else if (arg === "--pr") {
       options.pr = argv[++index];
     } else if (arg === "--mode") {
@@ -54,6 +58,10 @@ async function main() {
   const options = parseArgs(process.argv.slice(2));
   if (options.help) {
     printHelp();
+    return;
+  }
+  if (options.version) {
+    console.log(packageJson.version);
     return;
   }
   if (!options.pr) {

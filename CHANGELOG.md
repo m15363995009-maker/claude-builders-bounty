@@ -2,10 +2,12 @@
 
 All notable changes to this project are recorded here.
 
-## [0.1.0] - 2026-08-08
+## [0.1.0] - 2026-08-09
 
 - Published the `claude-review` CLI on the public `main` branch.
 - Added deterministic heuristic review and optional local Claude CLI support.
 - Added read-only CI and pull-request report workflows.
 - Added tests, security guidance, contribution templates, and an evidence ledger.
+- Added a reproducible release check covering unit tests, CLI help, and version output.
+- Added a transparent proposed contribution-bounty plan with no active payout claim.
 - No adoption, download, payment, or maintainer-impact claim is inferred from this bootstrap release.

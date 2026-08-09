@@ -8,7 +8,10 @@
     "claude-review": "./bin/claude-review.js"
   },
   "scripts": {
-    "test": "node test/unit.test.js"
+    "test": "node test/unit.test.js",
+    "test:smoke": "node bin/claude-review.js --help",
+    "test:version": "node bin/claude-review.js --version",
+    "check": "npm test && npm run test:smoke && npm run test:version"
   },
   "engines": {
     "node": ">=20"

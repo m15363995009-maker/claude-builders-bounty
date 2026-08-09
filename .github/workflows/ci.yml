@@ -26,8 +26,5 @@ jobs:
       - name: Install dependencies without lifecycle scripts
         run: npm ci --ignore-scripts
 
-      - name: Run tests
-        run: npm test
-
-      - name: Check CLI help
-        run: node bin/claude-review.js --help
+      - name: Run release checks
+        run: npm run check
