@@ -4,6 +4,9 @@ All notable changes to this project are recorded here.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-09
+
+- Target the public GitHub Releases channel; npm registry publication remains intentionally disabled.
 - Require HTTPS GitHub pull-request URLs and reject credential-bearing or port-qualified URLs.
 - Preserve successful pull-request metadata when the GitHub file-list request is unavailable.
 - Bound GitHub API and diff requests with a 30-second timeout.
