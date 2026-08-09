@@ -12,6 +12,7 @@ This project is independent and is not an Anthropic or OpenAI product. A public 
 
 - A `claude-review` CLI for structured pull-request review reports.
 - Strict GitHub pull-request URL validation and metadata/diff retrieval.
+- HTTPS-only GitHub URLs, bounded network requests, and partial-response fallback when file metadata is unavailable.
 - A deterministic heuristic engine that works without a Claude account or API key.
 - Optional local Claude CLI support through an explicitly configured command.
 - Explicit, opt-in PR comment posting; read-only reporting is the default.
