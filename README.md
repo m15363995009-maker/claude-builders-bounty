@@ -4,7 +4,9 @@
 
 ## Current status
 
-This repository is a bootstrap project. Release [`v0.1.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.1.0) is public. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
+This repository is a bootstrap project. Releases [`v0.1.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.1.0) and [`v0.2.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.2.0) are public. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
+
+The CLI has one dated, public cross-project maintainer pilot on [`codex-maintainer-automation` PR #9](https://github.com/m15363995009-maker/codex-maintainer-automation/pull/9#issuecomment-5231636051). Both repositories have the same owner, so this is workflow evidence, not external adoption.
 
 This project is independent and is not an Anthropic or OpenAI product. A public repository does not imply acceptance into any partner, credits, or subscription program.
 
