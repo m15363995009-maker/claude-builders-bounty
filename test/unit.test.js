@@ -6,6 +6,7 @@ const {
   REQUEST_TIMEOUT_MS,
 } = require("../src/github");
 const { createHeuristicReview, REQUIRED_HEADINGS } = require("../src/review");
+const { neutralizeGithubMentions, postIssueComment } = require("../src/comment");
 
 const parsed = parsePullRequestUrl("https://github.com/example/project/pull/123");
 assert.deepEqual(parsed, {
@@ -120,4 +121,40 @@ for (const heading of REQUIRED_HEADINGS) {
 }
 assert.match(review, /High|Medium|Low/);
 
-console.log("unit tests passed");
+assert.equal(
+  neutralizeGithubMentions("Thanks @maintainer and @team-name."),
+  "Thanks @\u200bmaintainer and @\u200bteam-name.",
+);
+assert.equal(
+  neutralizeGithubMentions("Email reviewer@example.com or read `@owner`"),
+  "Email reviewer@example.com or read `@\u200bowner`",
+);
+
+async function testCommentPosting() {
+  const calls = [];
+  await postIssueComment(
+    { owner: "example", repo: "project", number: 123 },
+    "Please check @maintainer; contact reviewer@example.com.",
+    {
+      token: "secret-token",
+      fetchImpl: async (url, options) => {
+        calls.push({ url, options });
+        return { ok: true, status: 201, text: async () => "" };
+      },
+    },
+  );
+
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].options.headers.Authorization, "Bearer secret-token");
+  assert.equal(
+    JSON.parse(calls[0].options.body).body,
+    "Please check @\u200bmaintainer; contact reviewer@example.com.",
+  );
+}
+
+testCommentPosting()
+  .then(() => console.log("unit tests passed"))
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });

@@ -4,6 +4,13 @@ All notable changes to this project are recorded here.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-12
+
+- neutralize GitHub-style `@mentions` in generated review comments before posting;
+- preserve ordinary email addresses while preventing unintended user or team notifications;
+- add injected HTTP coverage for the exact outbound comment body;
+- add repository badges and a truthful discovery call to action.
+
 ## [0.2.0] - 2026-08-09
 
 - Target the public GitHub Releases channel; npm registry publication remains intentionally disabled.

@@ -1,6 +1,6 @@
 {
   "name": "claude-pr-review-agent",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Read-only pull-request review CLI with deterministic and optional local Claude engines.",
   "keywords": [
     "claude-code",

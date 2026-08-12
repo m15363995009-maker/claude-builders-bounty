@@ -1,6 +1,16 @@
-async function postIssueComment(pr, body, { token }) {
+function neutralizeGithubMentions(body) {
+  return String(body).replace(
+    /(^|[^A-Za-z0-9._%+-])@([A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?)(?![A-Za-z0-9-])/g,
+    `$1@\u200b$2`,
+  );
+}
+
+async function postIssueComment(pr, body, { token, fetchImpl = globalThis.fetch }) {
   const url = `https://api.github.com/repos/${pr.owner}/${pr.repo}/issues/${pr.number}/comments`;
-  const response = await fetch(url, {
+  if (typeof fetchImpl !== "function") {
+    throw new Error("A fetch implementation is required");
+  }
+  const response = await fetchImpl(url, {
     method: "POST",
     headers: {
       Accept: "application/vnd.github+json",
@@ -9,7 +19,7 @@ async function postIssueComment(pr, body, { token }) {
       "User-Agent": "claude-pr-review-agent",
       "X-GitHub-Api-Version": "2022-11-28",
     },
-    body: JSON.stringify({ body }),
+    body: JSON.stringify({ body: neutralizeGithubMentions(body) }),
   });
 
   if (!response.ok) {
@@ -19,5 +29,6 @@ async function postIssueComment(pr, body, { token }) {
 }
 
 module.exports = {
+  neutralizeGithubMentions,
   postIssueComment,
 };
