@@ -1,10 +1,14 @@
 # Claude Builders Bounty
 
+[![CI](https://github.com/m15363995009-maker/claude-builders-bounty/actions/workflows/ci.yml/badge.svg)](https://github.com/m15363995009-maker/claude-builders-bounty/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/m15363995009-maker/claude-builders-bounty)](https://github.com/m15363995009-maker/claude-builders-bounty/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 > A public early-stage project for matching Claude Code and AI-tooling maintenance tasks with contributors.
 
 ## Current status
 
-This repository is a bootstrap project. Releases [`v0.1.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.1.0) and [`v0.2.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.2.0) are public. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
+This repository is an early-stage public project. Releases through [`v0.3.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.3.0) are public. Version `v0.3.0` prevents generated review text from accidentally notifying GitHub users or teams. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
 
 The CLI has one dated, public cross-project maintainer pilot on [`codex-maintainer-automation` PR #9](https://github.com/m15363995009-maker/codex-maintainer-automation/pull/9#issuecomment-5231636051). Both repositories have the same owner, so this is workflow evidence, not external adoption.
 
@@ -18,6 +22,7 @@ This project is independent and is not an Anthropic or OpenAI product. A public 
 - A deterministic heuristic engine that works without a Claude account or API key.
 - Optional local Claude CLI support through an explicitly configured command.
 - Explicit, opt-in PR comment posting; read-only reporting is the default.
+- Automatic neutralization of GitHub-style mentions in posted review comments while preserving email addresses.
 - Tests, samples, a reusable Claude Code reviewer instruction, and read-only GitHub Actions.
 
 ## Install from source
@@ -47,6 +52,8 @@ Environment variables:
 - `CLAUDE_REVIEW_ARGS` — arguments before the prompt; default `-p`.
 
 To post one review comment intentionally, use `--post-comment` with a token. Never place credentials in this repository, an issue, a pull request, or a sample file.
+
+If the project helps your maintenance workflow, an authentic Star helps other contributors find it. Reproducible issues and focused pull requests are welcome; no engagement action is required for review or support.
 
 ## GitHub Actions boundary
 
