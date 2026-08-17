@@ -11,10 +11,12 @@ const {
 } = require("../src/review");
 const { postIssueComment } = require("../src/comment");
 
-function printHelp() {
-  console.log(`Usage: claude-review --pr https://github.com/owner/repo/pull/123 [options]
+function printHelp(stdout = process.stdout) {
+  stdout.write(`Usage: claude-review (--pr <url> | --fixture <file>) [options]
 
 Options:
+  --pr <url>                    Read a live GitHub pull request
+  --fixture <file>              Read a local synthetic pull request fixture
   --mode auto|claude|heuristic  Review engine. Default: auto
   --out <file>                  Write Markdown output to a file
   --post-comment                Post the review as a GitHub PR comment
@@ -28,6 +30,12 @@ Environment:
 `);
 }
 
+function requiredValue(argv, index, flag) {
+  const value = argv[index + 1];
+  if (!value || value.startsWith("--")) throw new Error(`${flag} requires a value`);
+  return value;
+}
+
 function parseArgs(argv) {
   const options = { mode: "auto", postComment: false };
   for (let index = 0; index < argv.length; index += 1) {
@@ -37,11 +45,17 @@ function parseArgs(argv) {
     } else if (arg === "--version" || arg === "-v") {
       options.version = true;
     } else if (arg === "--pr") {
-      options.pr = argv[++index];
+      options.pr = requiredValue(argv, index, "--pr");
+      index += 1;
+    } else if (arg === "--fixture") {
+      options.fixture = requiredValue(argv, index, "--fixture");
+      index += 1;
     } else if (arg === "--mode") {
-      options.mode = argv[++index];
+      options.mode = requiredValue(argv, index, "--mode");
+      index += 1;
     } else if (arg === "--out") {
-      options.out = argv[++index];
+      options.out = requiredValue(argv, index, "--out");
+      index += 1;
     } else if (arg === "--post-comment") {
       options.postComment = true;
     } else {
@@ -51,31 +65,60 @@ function parseArgs(argv) {
   if (!["auto", "claude", "heuristic"].includes(options.mode)) {
     throw new Error("--mode must be one of: auto, claude, heuristic");
   }
+  if (options.pr && options.fixture) {
+    throw new Error("--pr and --fixture cannot be used together");
+  }
+  if (options.fixture && options.postComment) {
+    throw new Error("--post-comment requires a live --pr");
+  }
   return options;
 }
 
-async function main() {
-  const options = parseArgs(process.argv.slice(2));
+function validateFixture(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("Fixture must contain a JSON object");
+  }
+  if (!Array.isArray(value.files)) {
+    throw new Error("Fixture must include a files array");
+  }
+  if (typeof value.diff !== "string") {
+    throw new Error("Fixture must include a diff string");
+  }
+  return value;
+}
+
+async function main({
+  argv = process.argv.slice(2),
+  env = process.env,
+  stdout = process.stdout,
+  fetchPullRequestImpl = fetchPullRequest,
+  postIssueCommentImpl = postIssueComment,
+  runClaudeReviewImpl = runClaudeReview,
+  fsImpl = fs,
+} = {}) {
+  const options = parseArgs(argv);
   if (options.help) {
-    printHelp();
-    return;
+    printHelp(stdout);
+    return { action: "help" };
   }
   if (options.version) {
-    console.log(packageJson.version);
-    return;
+    stdout.write(`${packageJson.version}\n`);
+    return { action: "version" };
   }
-  if (!options.pr) {
-    throw new Error("Missing required --pr https://github.com/owner/repo/pull/123");
+  if (!options.pr && !options.fixture) {
+    throw new Error("Provide --pr https://github.com/owner/repo/pull/123 or --fixture <file>");
   }
 
-  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
-  const pr = await fetchPullRequest(options.pr, { token });
+  const token = env.GITHUB_TOKEN || env.GH_TOKEN || "";
+  const pr = options.fixture
+    ? validateFixture(JSON.parse(await fsImpl.readFile(path.resolve(options.fixture), "utf8")))
+    : await fetchPullRequestImpl(options.pr, { token });
   const prompt = buildClaudePrompt(pr);
 
   let markdown;
   let engine = "heuristic";
   if (options.mode !== "heuristic") {
-    const claudeResult = runClaudeReview(prompt);
+    const claudeResult = runClaudeReviewImpl(prompt);
     if (claudeResult.ok) {
       markdown = claudeResult.markdown;
       engine = "claude";
@@ -101,13 +144,23 @@ async function main() {
     if (!token) {
       throw new Error("--post-comment requires GITHUB_TOKEN or GH_TOKEN");
     }
-    await postIssueComment(pr, output, { token });
+    await postIssueCommentImpl(pr, output, { token });
   }
 
-  process.stdout.write(output);
+  stdout.write(output);
+  return { action: options.postComment ? "commented" : "reviewed", engine };
 }
 
-main().catch((error) => {
-  console.error(`claude-review: ${error.message}`);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(`claude-review: ${error.message}`);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = {
+  main,
+  parseArgs,
+  printHelp,
+  validateFixture,
+};

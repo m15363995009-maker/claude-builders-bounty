@@ -8,7 +8,7 @@
 
 ## Current status
 
-This repository is an early-stage public project. Releases through [`v0.3.0`](https://github.com/m15363995009-maker/claude-builders-bounty/releases/tag/v0.3.0) are public. Version `v0.3.0` prevents generated review text from accidentally notifying GitHub users or teams. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
+This repository is an early-stage public project. Version `v0.4.0` adds a bundled offline fixture so a first review can run without a GitHub token, live pull request, network request, or Claude account. It retains the mention-safety boundary from `v0.3.0`. The project currently has no verified active bounties, external users, downloads, or adoption metrics; those facts are intentionally not inferred from a release or repository activity. See [`docs/evidence-ledger.md`](docs/evidence-ledger.md) for dated evidence.
 
 The CLI has one dated, public cross-project maintainer pilot on [`codex-maintainer-automation` PR #9](https://github.com/m15363995009-maker/codex-maintainer-automation/pull/9#issuecomment-5231636051). Both repositories have the same owner, so this is workflow evidence, not external adoption.
 
@@ -42,6 +42,17 @@ node bin/claude-review.js \
 ```
 
 Use `node bin/claude-review.js --version` to verify the installed CLI version.
+
+For a one-minute, network-free first run, use the bundled synthetic fixture:
+
+```bash
+node bin/claude-review.js \
+  --fixture fixtures/sample-pr.json \
+  --mode heuristic \
+  --out review.md
+```
+
+Fixture mode never calls GitHub and rejects `--post-comment`. The bundled file contains synthetic metadata and diff content only.
 
 The default `auto` mode tries the local Claude CLI and falls back to the heuristic engine when that command is unavailable. Use `--mode claude` to fail instead of falling back.
 
