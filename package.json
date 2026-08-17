@@ -1,6 +1,6 @@
 {
   "name": "claude-pr-review-agent",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Read-only pull-request review CLI with deterministic and optional local Claude engines.",
   "keywords": [
     "claude-code",
@@ -21,6 +21,7 @@
   },
   "files": [
     "bin/",
+    "fixtures/",
     "src/",
     "CHANGELOG.md",
     "README.md",
@@ -34,8 +35,9 @@
     "test": "node test/unit.test.js",
     "test:smoke": "node bin/claude-review.js --help",
     "test:version": "node bin/claude-review.js --version",
+    "test:fixture": "node bin/claude-review.js --fixture fixtures/sample-pr.json --mode heuristic",
     "test:package": "node test/package.test.js",
-    "check": "npm test && npm run test:smoke && npm run test:version && npm run test:package"
+    "check": "npm test && npm run test:smoke && npm run test:version && npm run test:fixture && npm run test:package"
   },
   "engines": {
     "node": ">=20"

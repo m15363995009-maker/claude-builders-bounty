@@ -44,6 +44,7 @@ const requiredPaths = [
   "README.md",
   "SECURITY.md",
   "bin/claude-review.js",
+  "fixtures/sample-pr.json",
   "package.json",
   "src/comment.js",
   "src/github.js",

@@ -1,0 +1,31 @@
+{
+  "owner": "example",
+  "repo": "sample-project",
+  "number": 42,
+  "htmlUrl": "https://github.com/example/sample-project/pull/42",
+  "title": "Add a bounded retry helper",
+  "body": "Synthetic fixture for an offline first run.",
+  "author": "sample-contributor",
+  "baseRef": "main",
+  "headRef": "feature/bounded-retry",
+  "changedFiles": 2,
+  "additions": 18,
+  "deletions": 4,
+  "files": [
+    {
+      "filename": "src/retry.js",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 4,
+      "changes": 18
+    },
+    {
+      "filename": "test/retry.test.js",
+      "status": "added",
+      "additions": 4,
+      "deletions": 0,
+      "changes": 4
+    }
+  ],
+  "diff": "diff --git a/src/retry.js b/src/retry.js\n--- a/src/retry.js\n+++ b/src/retry.js\n@@ -1 +1,2 @@\n-export function retry() {}\n+export function retry() {\n+  return 'bounded';\n+}\ndiff --git a/test/retry.test.js b/test/retry.test.js\nnew file mode 100644\n--- /dev/null\n+++ b/test/retry.test.js\n@@ -0,0 +1 @@\n+// synthetic test coverage\n"
+}

@@ -2,7 +2,12 @@
 
 All notable changes to this project are recorded here.
 
-## [Unreleased]
+## [0.4.0] - 2026-08-17
+
+- add `--fixture <json-file>` for a reproducible, network-free first review;
+- bundle a synthetic fixture and include it in package-content verification;
+- reject live comment posting in fixture mode and prove through injected tests that GitHub and Claude are not called;
+- document a copyable one-minute offline quickstart.
 
 ## [0.3.0] - 2026-08-12
 
