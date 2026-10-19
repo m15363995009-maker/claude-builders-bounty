@@ -4,7 +4,7 @@ This file records facts, not marketing claims. Add a row only after checking the
 
 | Claim | Value | Source URL or command | Checked on | Notes |
 |---|---|---|---|---|
-| Public repository | https://github.com/m15363995009-maker/claude-builders-bounty | GitHub REST API repository metadata | 2026-10-19 | Public fork of `claude-builders-bounty/claude-builders-bounty`; default branch is `main`; current head is merge commit `5e53859`. |
+| Public repository | https://github.com/m15363995009-maker/claude-builders-bounty | GitHub REST API repository metadata | 2026-10-19 | Public fork of `claude-builders-bounty/claude-builders-bounty`; default branch is `main`; current head is merge commit `8984723`. |
 | Maintainer role | public owner metadata: `m15363995009-maker` | GitHub REST API repository owner field | 2026-10-19 | Confirms public owner metadata only. |
 | Stars and subscribers | 0 stars; 0 subscribers | GitHub REST repository metadata and `GET /subscribers` | 2026-10-19 | Do not substitute watchers, forks, or repository activity. |
 | Forks | 1 public fork by a distinct username | GitHub REST `GET /repos/m15363995009-maker/claude-builders-bounty/forks` | 2026-10-19 | The fork is public, but account independence and actual use are not verified; it is not claimed as adoption. |
